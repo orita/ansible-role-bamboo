@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: your name
+  description:
+  company: your company (optional)
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+  license: BSD
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+  categories:
+  - development
+dependencies: []

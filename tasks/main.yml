@@ -1,0 +1,36 @@
+---
+# tasks file for orita.bamboo_service
+
+- name: create bamboo user
+  user: name={{ bamboo.user }} group={{ bamboo.group }} comment="Bamboo role account"
+
+- name: create bamboo base dir
+  file: path={{ bamboo.basedir }} mode=0755 owner={{ bamboo.user }} group={{ bamboo.group }} state=directory
+
+- name: create bamboo data dir
+  file: path={{ bamboo.datadir }} mode=0755 owner={{ bamboo.user }} group={{ bamboo.group }} state=directory
+
+- name: get bamboo tarball
+  get_url: url={{ bamboo.tarball }} dest=/tmp
+  register: bamboo_geturl
+
+- name: bamboo tarball
+  unarchive: src={{ bamboo_geturl.dest }} dest={{ bamboo.basedir }} copy=no owner={{ bamboo.user }} group={{ bamboo.group }}
+
+- name: check bamboo tarball
+  shell: tar tzf {{ bamboo_geturl.dest }} | head -1 | tr -d /
+  register: bamboo_bindir
+  ignore_errors: True
+  changed_when: "bamboo_bindir.rc != 0"
+
+- name: link bamboo binary
+  file: src={{ bamboo.basedir }}/{{ bamboo_bindir.stdout }} dest={{ bamboo.homedir }} state=link
+
+- name: install libselinux-python
+  yum: name=libselinux-python
+
+- name: initscript bamboo
+  template: src=initscript_bamboo dest=/etc/init.d/bamboo mode=0755
+
+- name: enable bamboo service
+  service: name=bamboo enabled=yes state=started
