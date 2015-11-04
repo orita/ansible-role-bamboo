@@ -14,4 +14,6 @@ galaxy_info:
     - 6
   categories:
   - development
-dependencies: []
+dependencies:
+  - ericmdev.libselinux-python
+  - geerlingguy.java

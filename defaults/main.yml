@@ -1,10 +1,6 @@
 ---
-# defaults file for orita.bamboo_service
+# defaults file for orita.bamboo
 bamboo:
-  tarball: https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-5.9.7.tar.gz
-  #tarball: atlassian-bamboo-5.9.7.tar.gz
-  user: bamboo
-  group: bamboo
+  binary_url: https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-5.9.7.tar.gz
   basedir: /opt/atlassian/bamboo
-  homedir: /opt/atlassian/bamboo/current
-  datadir: /var/atlassian/application-data/bamboo
+  homedir: /var/atlassian/application-data/bamboo

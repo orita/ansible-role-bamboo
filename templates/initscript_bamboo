@@ -17,9 +17,9 @@ set -e
 # Name of app ( bamboo, Confluence, etc )
 APP=bamboo
 # Name of the user to run as
-USER={{ bamboo.user }}
+USER=bamboo
 # Location of application's bin directory
-BASE={{ bamboo.homedir }}
+BASE={{ bamboo.basedir }}/current
 
 case "$1" in
   # Start command
