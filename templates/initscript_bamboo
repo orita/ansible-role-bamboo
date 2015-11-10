@@ -19,7 +19,7 @@ APP=bamboo
 # Name of the user to run as
 USER=bamboo
 # Location of application's bin directory
-BASE={{ bamboo.basedir }}/current
+BASE={{ bamboo_basedir }}/current
 
 case "$1" in
   # Start command

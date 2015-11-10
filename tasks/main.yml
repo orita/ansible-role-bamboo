@@ -5,17 +5,17 @@
   user: name=bamboo comment="Bamboo role account"
 
 - name: create bamboo base dir
-  file: path={{ bamboo.basedir }} mode=0755 owner=bamboo group=bamboo state=directory
+  file: path={{ bamboo_basedir }} mode=0755 owner=bamboo group=bamboo state=directory
 
 - name: create bamboo home dir
-  file: path={{ bamboo.homedir }} mode=0755 owner=bamboo group=bamboo state=directory
+  file: path={{ bamboo_homedir }} mode=0755 owner=bamboo group=bamboo state=directory
 
 - name: get bamboo tarball
-  get_url: url={{ bamboo.binary_url }} dest=/tmp
+  get_url: url={{ bamboo_binary_url }} dest=/tmp
   register: bamboo_geturl
 
 - name: put bamboo tarball
-  unarchive: src={{ bamboo_geturl.dest }} dest={{ bamboo.basedir }} copy=no owner=bamboo group=bamboo
+  unarchive: src={{ bamboo_geturl.dest }} dest={{ bamboo_basedir }} copy=no owner=bamboo group=bamboo
 
 - name: check bamboo tarball top dir
   shell: tar tzf {{ bamboo_geturl.dest }} | head -1 | tr -d /
@@ -24,13 +24,13 @@
   changed_when: "bamboo_original_bindir.rc != 0"
 
 - name: link bamboo binary
-  file: src={{ bamboo.basedir }}/{{ bamboo_original_bindir.stdout }} dest={{ bamboo.basedir }}/current state=link
+  file: src={{ bamboo_basedir }}/{{ bamboo_original_bindir.stdout }} dest={{ bamboo_basedir }}/current state=link
 
 - name: initscript bamboo
   template: src=initscript_bamboo dest=/etc/init.d/bamboo mode=0755
 
-- name: set bamboo.home
-  lineinfile: dest={{ bamboo.basedir }}/current/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties line='bamboo.home={{ bamboo.homedir }}' state=present
+- name: set bamboo_home
+  lineinfile: dest={{ bamboo_basedir }}/current/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties line='bamboo.home={{ bamboo_homedir }}' state=present
 
 - name: enable bamboo service
   service: name=bamboo enabled=yes state=started

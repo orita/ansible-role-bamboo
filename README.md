@@ -14,10 +14,9 @@ Role Variables
 --------------
 
 ```
-bamboo:
-  binary_url: https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-5.9.7.tar.gz
-  basedir: /opt/atlassian/bamboo
-  homedir: /var/atlassian/application-data/bamboo
+bamboo_binary_url: https://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-5.9.7.tar.gz
+bamboo_basedir: /opt/atlassian/bamboo
+bamboo_homedir: /var/atlassian/application-data/bamboo
 ```
 
 Dependencies
